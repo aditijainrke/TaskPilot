@@ -1,7 +1,5 @@
 #include "../include/ConflictManager.h"
-#include "../include/Task.h"
 #include <iostream>
-using namespace std;
 
 bool ConflictManager::checkConflict(
     const Task& task1,
@@ -11,8 +9,35 @@ bool ConflictManager::checkConflict(
            task1.getDeadline() == task2.getDeadline();
 }
 
+std::vector<SchedulingConflict> ConflictManager::getConflicts(
+    const std::vector<Task>& tasks) const
+{
+    std::vector<SchedulingConflict> conflicts;
+
+    for (int i = 0; i < static_cast<int>(tasks.size()); i++)
+    {
+        for (int j = i + 1; j < static_cast<int>(tasks.size()); j++)
+        {
+            if (checkConflict(tasks[i], tasks[j]))
+            {
+                SchedulingConflict conflict(
+                    tasks[i].getId(),
+                    tasks[j].getId(),
+                    tasks[i].getDeadline(),
+                    "Two different tasks have the same deadline."
+                );
+
+                conflicts.push_back(conflict);
+            }
+        }
+    }
+
+    return conflicts;
+}
+
 void ConflictManager::findConflicts(
-    const Task tasks[], int size) const
+    const Task tasks[],
+    int size) const
 {
     bool found = false;
 
@@ -22,11 +47,16 @@ void ConflictManager::findConflicts(
         {
             if (checkConflict(tasks[i], tasks[j]))
             {
-                cout << "\nConflict detected!\n";
-                cout << "Task 1: " << tasks[i].getTitle() << '\n';
-                cout << "Task 2: " << tasks[j].getTitle() << '\n';
-                cout << "Shared deadline: "
-                     << tasks[i].getDeadline() << '\n';
+                std::cout << "\nConflict detected!\n";
+
+                std::cout << "Task 1: "
+                          << tasks[i].getTitle() << '\n';
+
+                std::cout << "Task 2: "
+                          << tasks[j].getTitle() << '\n';
+
+                std::cout << "Shared deadline: "
+                          << tasks[i].getDeadline() << '\n';
 
                 found = true;
             }
@@ -35,6 +65,6 @@ void ConflictManager::findConflicts(
 
     if (!found)
     {
-        cout << "\nNo conflicts found.\n";
+        std::cout << "\nNo conflicts found.\n";
     }
 }
