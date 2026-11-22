@@ -1,3 +1,7 @@
+
+#ifndef TASK_H
+#define TASK_H
+
 #include <string>
 using namespace std;
 
@@ -19,13 +23,13 @@ public:
          string deadline, int priority,
          string status, bool recurring);
 
-    int getId();
-    string getTitle();
-    string getCategory();
-    string getDeadline();
-    int getPriority();
-    string getStatus();
-    bool isRecurring();
+    int getId() const;
+    string getTitle() const;
+    string getCategory() const;
+    string getDeadline() const;
+    int getPriority() const;
+    string getStatus() const;
+    bool isRecurring() const;
 
     void setPriority(int priority);
     void setStatus(string status);
@@ -33,3 +37,5 @@ public:
     void setCategory(string category);
     void setRecurring(bool recurring);
 };
+
+#endif
