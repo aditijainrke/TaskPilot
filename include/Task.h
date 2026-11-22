@@ -1,35 +1,45 @@
+
+#ifndef TASK_H
+#define TASK_H
+
 #include <string>
-using namespace std;
 
 class Task
 {
 private:
     int taskId;
-    string title;
-    string category;
-    string deadline;
+    std::string title;
+    std::string category;
+    std::string deadline;
     int priority;
-    string status;
+    std::string status;
     bool recurring;
 
 public:
     Task();
 
-    Task(int id, string title, string category,
-         string deadline, int priority,
-         string status, bool recurring);
+    Task(int id,
+         std::string title,
+         std::string category,
+         std::string deadline,
+         int priority,
+         std::string status,
+         bool recurring);
 
-    int getId();
-    string getTitle();
-    string getCategory();
-    string getDeadline();
-    int getPriority();
-    string getStatus();
-    bool isRecurring();
+    int getId() const;
+    std::string getTitle() const;
+    std::string getCategory() const;
+    std::string getDeadline() const;
+    int getPriority() const;
+    std::string getStatus() const;
+    bool isRecurring() const;
 
+    void setTitle(std::string title);
+    void setCategory(std::string category);
+    void setDeadline(std::string deadline);
     void setPriority(int priority);
-    void setStatus(string status);
-    void setDeadline(string deadline);
-    void setCategory(string category);
+    void setStatus(std::string status);
     void setRecurring(bool recurring);
 };
+
+#endif

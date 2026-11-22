@@ -1,9 +1,8 @@
+
 #include "../include/Task.h"
 
-// Default constructor
 Task::Task()
-{
-    taskId = 0;
+{taskId = 0;
     title = "";
     category = "";
     deadline = "";
@@ -12,7 +11,6 @@ Task::Task()
     recurring = false;
 }
 
-// Parameterized constructor
 Task::Task(int id, string title, string category,
            string deadline, int priority,
            string status, bool recurring)
@@ -26,44 +24,36 @@ Task::Task(int id, string title, string category,
     this->recurring = recurring;
 }
 
-// Getters
-
-int Task::getId()
-{
-    return taskId;
+int Task::getId() const
+{   return taskId;
 }
 
-string Task::getTitle()
-{
-    return title;
+string Task::getTitle() const
+{return title;
 }
 
-string Task::getCategory()
+string Task::getCategory() const
 {
-    return category;
+return category;
 }
 
-string Task::getDeadline()
+string Task::getDeadline() const
 {
-    return deadline;
+return deadline;
 }
 
-int Task::getPriority()
-{
-    return priority;
+int Task::getPriority() const
+{   return priority;
 }
 
-string Task::getStatus()
-{
-    return status;
+string Task::getStatus() const
+{return status;
 }
 
-bool Task::isRecurring()
+bool Task::isRecurring() const
 {
     return recurring;
 }
-
-// Setters
 
 void Task::setPriority(int priority)
 {
