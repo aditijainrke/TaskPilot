@@ -1,70 +1,71 @@
+
 #include "../include/PriorityQueue.h"
 #include <iostream>
-using namespace std;
 
-PriorityQueue::PriorityQueue() {
-    size = 0;
+PriorityQueue::PriorityQueue()
+{
 }
 
-void PriorityQueue::addTaskToPriorityQueue(const Task& task) {
-    if (size >= 100) {
-        cout << "Priority queue is full.\n";
-        return;
+void PriorityQueue::addTaskToPriorityQueue(const Task& task)
+{
+    int i = 0;
+
+    while (i < static_cast<int>(tasks.size()) &&
+           tasks[i].getPriority() <= task.getPriority())
+    {
+        i++;
     }
 
-    int i = size - 1;
-
-    // Shift lower-priority tasks to the right.
-    while (i >= 0 &&
-           tasks[i].getPriority() > task.getPriority()) {
-        tasks[i + 1] = tasks[i];
-        i--;
-    }
-
-    tasks[i + 1] = task;
-    size++;
-
-    cout << "Task added to priority queue.\n";
+    tasks.insert(tasks.begin() + i, task);
 }
 
-bool PriorityQueue::getHighestPriorityTask(Task& result) const {
-    if (size == 0) {
-        cout << "Priority queue is empty.\n";
+bool PriorityQueue::getHighestPriorityTask(Task& result) const
+{
+    if (tasks.empty())
+    {
         return false;
     }
 
-    result = tasks[0];
+    result = tasks.front();
     return true;
 }
 
-bool PriorityQueue::removeHighestPriorityTask() {
-    if (size == 0) {
-        cout << "No task to remove.\n";
+bool PriorityQueue::removeHighestPriorityTask()
+{
+    if (tasks.empty())
+    {
         return false;
     }
 
-    for (int i = 0; i < size - 1; i++) {
-        tasks[i] = tasks[i + 1];
-    }
-
-    size--;
-
-    cout << "Highest priority task removed.\n";
+    tasks.erase(tasks.begin());
     return true;
 }
 
-void PriorityQueue::displayPriorityTasks() const {
-    if (size == 0) {
-        cout << "No tasks in priority queue.\n";
+void PriorityQueue::displayPriorityTasks() const
+{
+    if (tasks.empty())
+    {
+        std::cout << "No tasks in priority queue.\n";
         return;
     }
 
-    cout << "\nTasks in Priority Order:\n";
+    std::cout << "\nTasks in Priority Order:\n";
 
-    for (int i = 0; i < size; i++) {
-        cout << "Priority: " << tasks[i].getPriority()
-             << " | Task: " << tasks[i].getTitle()
-             << " | Deadline: " << tasks[i].getDeadline()
-             << '\n';
+    for (const Task& task : tasks)
+    {
+        std::cout << "Priority: " << task.getPriority()
+                  << " | Task: " << task.getTitle()
+                  << " | Deadline: " << task.getDeadline()
+                  << '\n';
     }
+}
+
+int PriorityQueue::getSize() const
+{
+    return static_cast<int>(tasks.size());
+}
+
+bool PriorityQueue::isEmpty() const
+{
+    return tasks.empty();
 }
